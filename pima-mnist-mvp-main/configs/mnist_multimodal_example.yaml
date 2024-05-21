@@ -1,0 +1,37 @@
+#General params/wandb
+rng_seed: 12093940
+name: mnist_multimodal_example_det
+savedir: ./mnist_multimodal_example #output directory will be created to store results locally
+gpu: 2
+use_wandb: false
+use_artifact: false #w&b path to dataset artifact -OR- False if using datadir above/running wandb offline
+
+#wandb params (if we are using wandb)
+entity: bfp #w&b group for sharing
+project: mnist_multimodal_example #project identifier to group runs
+job_type: mnist_pytorch_multimodal_example to identify purpose of run for filtering
+
+#Data params
+dataset: mnist 
+datadir: '../datasets/MNIST' #topdir of data to be ingested by pytorch_datasets/bfp_datasets.py custom Dataset (specify path if not using wandb artifact)
+augment_training: false #Implemented for lattice data; performs subsampling and flips inputs
+noiseLevel: 0.01 #variance for noise term in modality 2. 0.01 for clean, 0.5 for noisy
+
+#Model params
+encoding_dim: 3
+num_clusters: 10 #number of labels
+num_1d_sample_points: 20 #Length of 1D input vector; raw input files will be resized to this length
+img_size: [28,28] #Size of 2D input vector - raw input files will be resized to this shape
+model: GeneralPIMA
+classification: true
+data_driven: false #(bool) false means we've implemented an expert model
+EM: true
+beta0: 1
+beta1: 1
+
+#Training params
+lrate: 0.00002 #learning rate
+num_epochs: 2000 #Training iterations
+batch_size: 100 #minibatch size for optimizer
+viz_frequency: 100
+tensorboard: false

@@ -1,0 +1,31 @@
+#General params/wandb
+rng_seed: 12093940
+name: mnist_unimodal_example
+savedir: ./mnist_unimodal_example #output directory will be created to store results locally
+gpu: 1
+use_wandb: false
+
+#Data params
+dataset: mnist 
+datadir: '../datasets/MNIST' #topdir of data to be ingested by pytorch_datasets/bfp_datasets.py
+modality_in: 0
+modality_out: 1
+noiseLevel: 0.01 #variance for noise term in modality 2. 0.01 for clean, 0.5 for noisy
+
+#Model params
+encoding_dim: 3 #PIMA latent dim
+num_clusters: 10 #number of labels
+classification: true
+num_1d_sample_points: 20 #Length of 1D input vector; raw input files will be resized to this length
+img_size: [28,28] #Size of 2D input vector - raw input files will be resized to this shape
+model: UnimodalPIMA
+trained_multimodal_model_path: mnist_multimodal_example/mnist_multimodal_example_det/80367336/models/trained_model.ckpt
+trained_unimodal_model_path: mnist_unimodal_example/mnist_unimodal_example/71074263/models/trained_model.ckpt
+data_driven: false #(bool) false means we've implemented an expert model
+EM: true
+
+#Training params
+lrate: 0.00005 #learning rate
+num_epochs: 1000 #Training iterations
+batch_size: 100 #minibatch size for optimizer
+viz_frequency: 20
